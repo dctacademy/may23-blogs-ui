@@ -10,6 +10,14 @@ export default function blogsReducer(state=initialState, action){
             return {...state, data: action.payload }
         }
 
+        case 'ADD_BLOG' : {
+            return {...state, data: [...state.data, action.payload ]}
+        }
+
+        case 'SET_ERRORS' : {
+            return { ...state, serverErrors: action.payload }
+        }
+
         default: {
             return {...state}
         }
