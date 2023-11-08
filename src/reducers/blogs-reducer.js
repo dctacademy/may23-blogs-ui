@@ -18,6 +18,10 @@ export default function blogsReducer(state=initialState, action){
             return { ...state, serverErrors: action.payload }
         }
 
+        case 'REMOVE_BLOG' : {
+            return {...state, data: state.data.filter(ele => ele._id !== action.payload )}
+        }
+
         default: {
             return {...state}
         }

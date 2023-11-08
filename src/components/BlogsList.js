@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import {Link} from 'react-router-dom'
-import { startGetMyBlogs } from '../actions/blogs-action'
+import { startGetMyBlogs, startDeleteBlog } from '../actions/blogs-action'
 export default function BlogsList() {
     const dispatch = useDispatch()
     const blogs = useSelector((state) => {
@@ -12,13 +12,24 @@ export default function BlogsList() {
         dispatch(startGetMyBlogs())
     }, [])
 
+    const handleRemove = (id) => {
+        const userInput = window.confirm("Are you sure?")
+        if(userInput) {
+            dispatch(startDeleteBlog(id))
+        }
+    }
+
     return (
         <div>
             <h2>Listing Blogs - { blogs.data.length } </h2>
             { blogs.data.length > 0 ? (
                 <ul>
                     { blogs.data.map((ele) => {
-                        return <li key={ele._id}>{ele.title}</li>
+                        return <li key={ele._id}><Link to={`/blogs/${ele._id}`}>{ele.title}</Link>
+                            <button onClick={() => {
+                                handleRemove(ele._id)
+                            }}> remove</button>
+                        </li>
                     })}
                 </ul>
             ): <b>No blogs found. Add your first blog</b>}

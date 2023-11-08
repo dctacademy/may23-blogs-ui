@@ -35,3 +35,18 @@ const addBlog = (blog) => {
 const setServerErrors = (err) => { 
     return { type: 'SET_ERRORS', payload: err}
 }
+
+export const startDeleteBlog = (id) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.delete(`/api/blogs/${id}`) 
+            dispatch(removeBlog(response.data._id))
+        } catch(e){
+
+        }
+    }
+}
+
+const removeBlog = (id) => {
+    return { type: "REMOVE_BLOG", payload: id }
+}
