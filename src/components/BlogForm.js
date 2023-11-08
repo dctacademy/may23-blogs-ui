@@ -20,13 +20,14 @@ export default function BlogForm() {
         validationSchema: blogValidationSchema, 
         validateOnChange: false, 
         onSubmit: (formData, { resetForm }) => { 
-            const redirect = () => {
-                navigate('/my-blogs')
-            }
+            // const redirect = (id) => {
+            //     navigate(`/blogs/${id}`)
+            // }
 
-            dispatch(startCreateBlog({formData, resetForm, redirect}))
+            dispatch(startCreateBlog({formData, resetForm, navigate}))
         }
     })
+
     return (
         <div>
             <h2>BlogForm Component</h2>

@@ -15,14 +15,13 @@ const setMyBlogs = (blogs) => {
     return { type: 'SET_MY_BLOGS', payload: blogs} 
 }
 
-export const startCreateBlog = ({ formData, redirect, resetForm }) => {
+export const startCreateBlog = ({ formData, navigate, resetForm }) => {
     return async (dispatch) => {
         try {
             const response = await axios.post('/api/blogs', formData)
-            console.log(response.data)
             dispatch(addBlog(response.data))
             resetForm()
-            redirect()
+            navigate(`/blogs/${response.data._id}`)
         } catch(e) {
             dispatch(setServerErrors(e.response.data.errors))
         }
